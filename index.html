@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<head>
+  <title>Monster Slayer</title>
+  <link rel='stylesheet' href='css/styles.css'>
+  <link rel='stylesheet' href='css/foundation.min.css'>
+  <script src='https://npmcdn.com/vue/dist/vue.js'></script>
+</head>
+<body>
+  <div id="app">
+      <section class="row">
+          <div class="small-6 columns">
+              <h1 class="text-center">YOU</h1>
+              <div class="healthbar">
+                  <div class="healthbar health text-center">
+                    {{playerHealth}}
+                  </div>
+              </div>
+          </div>
+          <div class="small-6 columns">
+              <h1 class="text-center">MONSTER</h1>
+              <div class="healthbar">
+                  <div class="healthbar health text-center">
+                    {{ monsterHealth }}
+                  </div>
+              </div>
+          </div>
+      </section>
+      <section class="row controls">
+          <div class="small-12 columns" v-if="turn || checkGameOver" @click='turn = !turn; coolOff -= 1'>
+              <button id="attack" @click="attack">ATTACK</button>
+              <button id="special-attack" @click="specialAttack()" v-if="checkCoolOff">SPECIAL ATTACK</button>
+              <button id="heal" @click="heal()">HEAL</button>
+              <button id="give-up" @click="giveUp()">GIVE UP</button>
+          </div>
+      </section>
+      <section class="row controls">
+          <div class="small-12 columns">
+              <button id="start-game" @click="resetGame">START NEW GAME</button>
+          </div>
+      </section>
+      <section class="row log" v-for="log in logs">
+          <div class="small-12 columns" :style="{backgroundColor: checkColor(log) ? 'red' : 'blue'}">
+            {{log}}
+          </div>
+      </section>
+  </div>
+  <script src='js/app.js'></script>
+</body>
+</html>
